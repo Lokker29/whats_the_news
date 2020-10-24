@@ -26,21 +26,9 @@ class _HomeState extends State<Home> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             MenuButton(text: "Read news!",
-                onPressed: () => Navigator.pushNamed(context, '/news')),
+                onPressed: () => Navigator.pushReplacementNamed(context, '/news')),
             SizedBox(height: 10),
             MenuButton(text: "Quit", onPressed: () => SystemNavigator.pop()),
-            // FlatButton(
-            //     onPressed: () => SystemNavigator.pop(),
-            //     minWidth: this.width,
-            //     color: Colors.amber,
-            //     textColor: Colors.white,
-            //     child: Text(
-            //       "Quit!",
-            //       style: TextStyle(fontSize: this.menuBtnsWidth),
-            //     ),
-            //     shape: RoundedRectangleBorder(
-            //         borderRadius:
-            //             BorderRadius.circular(this.menuBtnsBorderRadius)))
           ],
         ),
       ),
