@@ -17,6 +17,7 @@ class _NewsPageState extends State<NewsPage> {
             centerTitle: true
         ),
         body: Container(
+          color: DEFAULT_BACKGROUND_COLOR,
           padding: EdgeInsets.all(30.0),
           child: ListOfNews(),
         ),

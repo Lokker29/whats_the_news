@@ -21,15 +21,18 @@ class _HomeState extends State<Home> {
         title: Text("What's the news?", style: TextStyle(fontSize: 20)),
         centerTitle: true,
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MenuButton(text: "Read news!",
-                onPressed: () => Navigator.pushReplacementNamed(context, '/news')),
-            SizedBox(height: 10),
-            MenuButton(text: "Quit", onPressed: () => SystemNavigator.pop()),
-          ],
+      body: Container(
+        color: DEFAULT_BACKGROUND_COLOR,
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              MenuButton(text: "Read news!",
+                  onPressed: () => Navigator.pushReplacementNamed(context, '/news')),
+              SizedBox(height: 10),
+              MenuButton(text: "Quit", onPressed: () => SystemNavigator.pop()),
+            ],
+          ),
         ),
       ),
     );

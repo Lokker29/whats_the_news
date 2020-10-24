@@ -10,7 +10,7 @@ class NewsAPI {
   }
 
   Future everything() async {
-    String url = NEWS_API_TOP_HEADLINES + '?country=us';
+    String url = NEWS_API_TOP_HEADLINES + '?sources=bbc-news&pageSize=10';
 
     Map<String, String> headers = getApiKeyHeader();
     Response response = await get(url, headers: headers);
