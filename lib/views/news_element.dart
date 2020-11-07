@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/settings.dart';
+import 'package:whats_the_news/models/news.dart';
 
 class ListElement extends StatelessWidget {
-  final Map listElement;
+  final News listElement;
   final double sizedBoxHeight = 10.0;
   final int lengthContentDisplayed = 200;
 
@@ -10,19 +10,17 @@ class ListElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(this.listElement);
-
     List<Widget> children = [
       Text(
-        this.listElement['title'],
+        this.listElement.title,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
       ),
     ];
 
-    if (this.listElement['content'] != null) {
-      String text = this.listElement['content'].length < this.lengthContentDisplayed
-          ? this.listElement['content']
-          : (this.listElement['content'].substring(0, this.lengthContentDisplayed) + '...');
+    if (this.listElement.content != null) {
+      String text = this.listElement.content.length < this.lengthContentDisplayed
+          ? this.listElement.content
+          : (this.listElement.content.substring(0, this.lengthContentDisplayed) + '...');
 
       children.addAll([
         SizedBox(height: this.sizedBoxHeight),
@@ -36,21 +34,21 @@ class ListElement extends StatelessWidget {
       ]);
     }
 
-    if (this.listElement['source']['name'] != null) {
+    if (this.listElement.sourceName != null) {
       children.addAll([
         SizedBox(height: this.sizedBoxHeight),
         Text(
-          "Source: ${this.listElement['source']['name']}",
+          "Source: ${this.listElement.sourceName}",
           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
         ),
       ]);
     }
 
-    if (this.listElement['author'] != null) {
+    if (this.listElement.author != null) {
       children.addAll([
         SizedBox(height: this.sizedBoxHeight),
         Text(
-          "Author: ${this.listElement['author']}",
+          "Author: ${this.listElement.author}",
           textAlign: TextAlign.start,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
         ),
@@ -59,7 +57,6 @@ class ListElement extends StatelessWidget {
 
     return Card(
       child: Container(
-        color: DEFAULT_CARD_BACKGROUND_COLOR,
         padding: EdgeInsets.all(10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

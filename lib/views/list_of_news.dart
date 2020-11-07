@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/logics/NewsApi.dart';
-import 'package:whats_the_news/widgets/ErrorAlert.dart';
-import 'package:whats_the_news/widgets/ListElement.dart';
-import 'package:whats_the_news/widgets/Spinkit.dart';
+import 'package:whats_the_news/services/news_api_client.dart';
+import 'package:whats_the_news/views/error_alert.dart';
+import 'package:whats_the_news/views/news_element.dart';
+import 'package:whats_the_news/views/loader_spinkit.dart';
 
 class ListOfNews extends StatefulWidget {
   @override
@@ -12,16 +12,18 @@ class ListOfNews extends StatefulWidget {
 class _ListOfNewsState extends State<ListOfNews> {
   final NewsAPI newsApiClient = NewsAPI();
 
+  void rerunBuild() => setState(() {});
+
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: this.newsApiClient.everything(),
+        future: this.newsApiClient.getEverything(),
         builder: (context, snapshot) {
-          return createNewsListView(context, snapshot);
+          return _createNewsListView(context, snapshot);
         });
   }
 
-  Widget createNewsListView(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _createNewsListView(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.hasData) {
       var values = snapshot.data;
 
@@ -32,9 +34,9 @@ class _ListOfNewsState extends State<ListOfNews> {
         itemCount: values.length,
       );
     } else if (snapshot.hasError) {
-      return ErrorAlert();
+      return ErrorAlert(rerunBuild);
     } else {
-      return spinkit;
+      return LoaderSpinkit();
     }
   }
 }

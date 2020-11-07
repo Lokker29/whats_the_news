@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/settings.dart';
-import 'package:whats_the_news/widgets/ListOfNews.dart';
+import 'package:whats_the_news/views/list_of_news.dart';
 
 class NewsPage extends StatefulWidget {
   @override
@@ -12,12 +11,11 @@ class _NewsPageState extends State<NewsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            backgroundColor: DEFAULT_PROJECT_COLOR,
+          automaticallyImplyLeading: false,
             title: Text("News", style: TextStyle(fontSize: 20)),
             centerTitle: true
         ),
         body: Container(
-          color: DEFAULT_BACKGROUND_COLOR,
           padding: EdgeInsets.all(30.0),
           child: ListOfNews(),
         ),
