@@ -29,7 +29,7 @@ class NewsAPI {
   Future<List<News>> getEverything() async {
     var dataFromAPI =
         (await _makeCheckedCall(() => newsEverythingService.getNews({
-                  'sources': 'bbc-news',
+                  'q': 'bbc',
                   'pageSize': 10,
                 })))
             .body['articles'] as List<dynamic>;

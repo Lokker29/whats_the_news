@@ -10,15 +10,20 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
           automaticallyImplyLeading: false,
-            title: Text("News", style: TextStyle(fontSize: 20)),
-            centerTitle: true
-        ),
-        body: Container(
-          padding: EdgeInsets.all(30.0),
-          child: ListOfNews(),
-        ),
+          title: Text(
+            "News",
+            style: TextStyle(
+              fontSize: 20,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          centerTitle: true),
+      body: Container(
+        padding: EdgeInsets.all(30.0),
+        child: ListOfNews(),
+      ),
     );
   }
 }

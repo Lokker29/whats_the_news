@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_the_news/resources/string_constants.dart';
 import 'package:whats_the_news/services/news_api_client.dart';
 import 'package:whats_the_news/views/error_alert.dart';
 import 'package:whats_the_news/views/news_element.dart';
@@ -26,6 +27,17 @@ class _ListOfNewsState extends State<ListOfNews> {
   Widget _createNewsListView(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.hasData) {
       var values = snapshot.data;
+
+      if ((values as List<dynamic>).isEmpty) {
+        return Text(
+          StringConstants.emptyListOfNewsText,
+          style: TextStyle(
+            fontSize: 20.0,
+            height: 1.5,
+            fontWeight: FontWeight.w500
+          ),
+        );
+      }
 
       return ListView.builder(
         itemBuilder: (BuildContext context, int index) {
