@@ -1,8 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/resources/string_constants.dart';
-import 'package:whats_the_news/views/menu_button.dart';
-
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'news_page.dart';
 
 class Home extends StatefulWidget {
@@ -14,46 +15,39 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: _buildAppbar(),
-      body: _buildBody(),
-    );
-  }
+  void initState() {
+    super.initState();
 
-  Widget _buildAppbar() {
-    return AppBar(
-      automaticallyImplyLeading: false,
-      title: Text(
-        StringConstants.mainTitle,
-        style: TextStyle(
-          fontSize: 20,
-          fontWeight: FontWeight.w600,
+    Future.delayed(const Duration(seconds: 5), () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => NewsPage(),
+          settings: RouteSettings(
+            arguments: Category.getDefaultCategoryName,
+          ),
         ),
-      ),
-      centerTitle: true,
-    );
+      );
+    });
   }
 
-  Widget _buildBody() {
-    return Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            MenuButton(
-                text: StringConstants.goToNewsButtonText,
-                onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NewsPage(),
-                      settings: RouteSettings(
-                        arguments: Category.getDefaultCategoryName,
-                      )
-                    ))),
-            SizedBox(height: 10),
-            MenuButton(text: "Test", onPressed: () {}),
-          ],
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        color: Colors.black,
+        child: Center(
+          child: TypewriterAnimatedTextKit(
+            speed: Duration(milliseconds: 250),
+            text: [
+              StringConstants.mainTitle,
+            ],
+            textStyle: TextStyle(
+              fontSize: 30,
+              color: Colors.white,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
         ),
       ),
     );
