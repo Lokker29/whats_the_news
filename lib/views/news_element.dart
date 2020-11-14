@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/news.dart';
+import 'package:whats_the_news/resources/assets_urls.dart';
 
 class ListElement extends StatelessWidget {
   final News listElement;
   final double sizedBoxHeight = 10.0;
-  final int lengthContentDisplayed = 200;
 
   ListElement({key, @required this.listElement}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [
+      _buildImage(),
       Text(
         this.listElement.title,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -18,14 +19,10 @@ class ListElement extends StatelessWidget {
     ];
 
     if (this.listElement.content != null) {
-      String text = this.listElement.content.length < this.lengthContentDisplayed
-          ? this.listElement.content
-          : (this.listElement.content.substring(0, this.lengthContentDisplayed) + '...');
-
       children.addAll([
         SizedBox(height: this.sizedBoxHeight),
         Text(
-          '"$text"',
+          listElement.getShortContent,
           style: TextStyle(
             fontSize: 14,
             fontStyle: FontStyle.italic,
@@ -64,5 +61,20 @@ class ListElement extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _buildImage() {
+    if (listElement.urlToImage != null) {
+      print(listElement.getUrlToImage);
+      return Image.network(
+        listElement.getUrlToImage,
+        fit: BoxFit.cover,
+      );
+    } else {
+      return Image.asset(
+        AssetsUrls.defaultNewsUrl,
+        fit: BoxFit.cover,
+      );
+    }
   }
 }

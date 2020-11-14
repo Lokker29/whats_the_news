@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/views/list_of_news.dart';
 
+import 'home.dart';
+
 class NewsPage extends StatefulWidget {
+  static const String routeName = '/news';
+
   @override
   _NewsPageState createState() => _NewsPageState();
 }
@@ -12,6 +16,15 @@ class _NewsPageState extends State<NewsPage> {
     return Scaffold(
       appBar: AppBar(
           automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () {
+              Navigator.pushNamed(
+                context,
+                Home.routeName,
+              );
+            },
+          ),
           title: Text(
             "News",
             style: TextStyle(
@@ -21,7 +34,7 @@ class _NewsPageState extends State<NewsPage> {
           ),
           centerTitle: true),
       body: Container(
-        padding: EdgeInsets.all(30.0),
+        // padding: EdgeInsets.all(30.0),
         child: ListOfNews(),
       ),
     );

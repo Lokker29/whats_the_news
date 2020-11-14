@@ -18,7 +18,7 @@ class News {
     this.publishedAt,
     this.content,
   });
-  
+
   String get sourceName {
     return this.source != null ? this.source.name : null;
   }
@@ -48,6 +48,17 @@ class News {
     data['publishedAt'] = this.publishedAt;
     data['content'] = this.content;
     return data;
+  }
+
+  String get getUrlToImage {
+    return urlToImage.startsWith('//') ? 'https:' + urlToImage : urlToImage;
+  }
+
+  String get getShortContent {
+    var lengthContentDisplayed = 200;
+    return content.length < lengthContentDisplayed
+        ? content
+        : content.substring(0, lengthContentDisplayed) + '...';
   }
 }
 

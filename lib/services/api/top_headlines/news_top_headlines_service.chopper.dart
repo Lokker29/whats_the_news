@@ -14,9 +14,10 @@ class _$TopHeadlinesNewsService extends TopHeadlinesNewsService {
 
   final definitionType = TopHeadlinesNewsService;
 
-  Future<Response> getNews() {
+  Future<Response> getNews(Map<String, dynamic> query) {
     final $url = '/v2/top-headlines';
-    final $request = Request('GET', $url, client.baseUrl);
+    final $params = query;
+    final $request = Request('GET', $url, client.baseUrl, parameters: $params);
     return client.send<dynamic, dynamic>($request);
   }
 }

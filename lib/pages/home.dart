@@ -3,6 +3,8 @@ import 'package:whats_the_news/resources/string_constants.dart';
 import 'package:whats_the_news/views/menu_button.dart';
 
 class Home extends StatefulWidget {
+  static const String routeName = '/';
+
   @override
   _HomeState createState() => _HomeState();
 }

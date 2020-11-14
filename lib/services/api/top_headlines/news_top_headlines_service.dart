@@ -9,5 +9,5 @@ abstract class TopHeadlinesNewsService extends ChopperService {
       _$TopHeadlinesNewsService(client);
 
   @Get()
-  Future<Response> getNews();
+  Future<Response> getNews(@QueryMap() Map<String, dynamic> query);
 }

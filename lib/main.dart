@@ -20,10 +20,10 @@ void main() {
             backgroundColor: Color(0xFF171617)),
       ),
     ),
-    initialRoute: '/',
+    initialRoute: '/news',
     routes: {
-      '/': (context) => Home(),
-      '/news': (context) => NewsPage(),
+      Home.routeName: (context) => Home(),
+      NewsPage.routeName: (context) => NewsPage(),
     },
   ));
 }
