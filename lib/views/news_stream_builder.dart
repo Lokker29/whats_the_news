@@ -27,6 +27,11 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
     super.dispose();
   }
 
+  Map _getApiFilters() {
+    var categoryName = ModalRoute.of(context).settings.arguments;
+    return {'category': categoryName};
+  }
+
   @override
   void initState() {
     super.initState();
@@ -36,12 +41,16 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
       setState(() => newsList.add(event));
     });
 
-    var streamRes = newsApiClient.getTopHeadlines(1);
-    _refreshController.addStream(streamRes);
+    Future.delayed(Duration.zero, () {
+      var streamRes =
+          newsApiClient.getTopHeadlines(page: 1, filters: _getApiFilters());
+      _refreshController.addStream(streamRes);
+    });
   }
 
   void _refreshOnError() {
-    var streamRes = newsApiClient.getTopHeadlines(2);
+    var streamRes =
+        newsApiClient.getTopHeadlines(page: 2, filters: _getApiFilters());
     _refreshController.addStream(streamRes);
   }
 

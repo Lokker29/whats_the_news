@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_the_news/resources/string_constants.dart';
 import 'package:whats_the_news/views/list_of_news.dart';
 
 import 'home.dart';
@@ -26,7 +27,7 @@ class _NewsPageState extends State<NewsPage> {
             },
           ),
           title: Text(
-            "News",
+            StringConstants.mainTitle,
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,

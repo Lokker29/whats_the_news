@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/resources/string_constants.dart';
 import 'package:whats_the_news/views/menu_button.dart';
+
+import 'news_page.dart';
 
 class Home extends StatefulWidget {
   static const String routeName = '/';
@@ -40,7 +43,14 @@ class _HomeState extends State<Home> {
           children: [
             MenuButton(
                 text: StringConstants.goToNewsButtonText,
-                onPressed: () => Navigator.of(context).pushNamed('/news')),
+                onPressed: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NewsPage(),
+                      settings: RouteSettings(
+                        arguments: Category.getDefaultCategoryName,
+                      )
+                    ))),
             SizedBox(height: 10),
             MenuButton(text: "Test", onPressed: () {}),
           ],

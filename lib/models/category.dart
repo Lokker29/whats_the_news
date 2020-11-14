@@ -18,4 +18,8 @@ class Category {
       Category(name: 'technology', imageAssetUrl: AssetsUrls.technologyUrl),
     ];
   }
+
+  static String get getDefaultCategoryName {
+    return 'general';
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:whats_the_news/pages/article.dart';
 import 'pages/news_page.dart';
 import 'pages/home.dart';
 
@@ -20,10 +21,11 @@ void main() {
             backgroundColor: Color(0xFF171617)),
       ),
     ),
-    initialRoute: '/news',
+    initialRoute: '/',
     routes: {
       Home.routeName: (context) => Home(),
       NewsPage.routeName: (context) => NewsPage(),
+      ArticlePage.routeName: (context) => ArticlePage(article: null),
     },
   ));
 }

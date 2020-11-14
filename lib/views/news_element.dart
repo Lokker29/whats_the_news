@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/news.dart';
+import 'package:whats_the_news/pages/article.dart';
 import 'package:whats_the_news/resources/assets_urls.dart';
 
 class ListElement extends StatelessWidget {
@@ -8,8 +9,7 @@ class ListElement extends StatelessWidget {
 
   ListElement({key, @required this.listElement}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  List<Widget> _getBuildChildren() {
     List<Widget> children = [
       _buildImage(),
       Text(
@@ -52,12 +52,26 @@ class ListElement extends StatelessWidget {
       ]);
     }
 
-    return Card(
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: children,
+    return children;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ArticlePage(article: listElement),
+            ));
+      },
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(10),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: _getBuildChildren(),
+          ),
         ),
       ),
     );
@@ -65,7 +79,6 @@ class ListElement extends StatelessWidget {
 
   Widget _buildImage() {
     if (listElement.urlToImage != null) {
-      print(listElement.getUrlToImage);
       return Image.network(
         listElement.getUrlToImage,
         fit: BoxFit.cover,

@@ -22,11 +22,14 @@ class CategoryTile extends StatelessWidget {
 
     return GestureDetector(
       onTap: () {
-        // TODO emit list update
-        Navigator.pushNamed(
+        Navigator.push(
           context,
-          NewsPage.routeName,
-          arguments: category.name,
+          MaterialPageRoute(
+            builder: (context) => NewsPage(),
+            settings: RouteSettings(
+              arguments: category.name,
+            ),
+          ),
         );
       },
       child: Container(
@@ -84,7 +87,6 @@ class CategoryTile extends StatelessWidget {
 }
 
 class CategoryTiles extends StatefulWidget {
-
   @override
   _CategoryTilesState createState() => _CategoryTilesState();
 }

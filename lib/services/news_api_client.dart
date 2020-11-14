@@ -23,12 +23,16 @@ class NewsAPI {
   static final newsTopHeadlinesService =
       _chopperClient.getService<TopHeadlinesNewsService>();
 
-  Stream<News> getTopHeadlines([page = 1]) async* {
+  Stream<News> getTopHeadlines({Map filters, int page = 1}) async* {
+    var localFilters = Map<String, dynamic>.from(filters);
+    localFilters['page'] = page;
+    localFilters['pageSize'] = 10;
+    localFilters['country'] = 'gb';
+
     var dataFromAPI =
-        (await _makeCheckedCall(() => newsTopHeadlinesService.getNews({
-          'category': 'business', 'pageSize': 5, 'page': page,
-        })))
+        (await _makeCheckedCall(() => newsTopHeadlinesService.getNews(localFilters)))
             .body['articles'] as List<dynamic>;
+
     var newsFromApi = dataFromAPI.map((data) => News.fromJson(data)).toList();
     for (var news in newsFromApi) yield news;
   }
@@ -36,7 +40,6 @@ class NewsAPI {
   Future<Response> _makeCheckedCall(Future<Response> Function() call) async {
     try {
       final response = await call();
-
       if (response.statusCode != 200 || response.body['status'] != 'ok') {
         throw APINotSuccessRequestError();
       }

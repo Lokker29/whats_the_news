@@ -26,6 +26,7 @@ dependencies:
   flutter_spinkit: ^4.1.2
   cupertino_icons: ^1.0.0
   chopper: ^2.0.0
+  webview_flutter: ^1.0.7
 
 dev_dependencies:
   flutter_test:
