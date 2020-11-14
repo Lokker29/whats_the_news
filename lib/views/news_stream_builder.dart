@@ -29,7 +29,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
 
   Map _getApiFilters() {
     var categoryName = ModalRoute.of(context).settings.arguments;
-    return {'category': categoryName};
+    return {'category': categoryName, 'page': 1, 'pageSize': 10};
   }
 
   @override

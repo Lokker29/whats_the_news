@@ -15,6 +15,11 @@ class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: Icon(Icons.search),
+        backgroundColor: Theme.of(context).primaryColor,
+      ),
       appBar: AppBar(
           automaticallyImplyLeading: false,
           leading: IconButton(

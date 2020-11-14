@@ -2,11 +2,9 @@ import 'dart:io';
 
 import 'package:chopper/chopper.dart';
 import 'package:whats_the_news/exceptions.dart';
-import 'package:whats_the_news/mocks/news.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/resources/settings.dart';
 
-import 'api/everything/news_everything_service.dart';
 import 'api/top_headlines/news_top_headlines_service.dart';
 
 class NewsAPI {
@@ -25,8 +23,6 @@ class NewsAPI {
 
   Stream<News> getTopHeadlines({Map filters, int page = 1}) async* {
     var localFilters = Map<String, dynamic>.from(filters);
-    localFilters['page'] = page;
-    localFilters['pageSize'] = 10;
     localFilters['country'] = 'gb';
 
     var dataFromAPI =

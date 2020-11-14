@@ -35,7 +35,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Material(
       child: Container(
-        color: Colors.black,
+        color: Theme.of(context).primaryColor,
         child: Center(
           child: TypewriterAnimatedTextKit(
             speed: Duration(milliseconds: 250),
