@@ -1,6 +1,8 @@
 import 'dart:async';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/resources/string_constants.dart';
 import 'package:whats_the_news/services/news_api_client.dart';
@@ -21,29 +23,38 @@ class NewsStreamBuilder extends StatefulWidget {
 }
 
 class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
-  StreamController<News> _refreshController;
+  int pageNumber = 1;
+
+  StreamController<News> _streamController;
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   List<News> newsList = [];
 
   final NewsAPI newsApiClient = NewsAPI();
 
   @override
   void dispose() {
-    _refreshController?.close();
-    _refreshController = null;
+    _streamController?.close();
+    _streamController = null;
     super.dispose();
   }
 
   Map _getApiFilters() {
     var categoryName = widget.activeCategoryName;
-    return {'category': categoryName, 'q': widget.searchText};
+    return {
+      'category': categoryName,
+      'q': widget.searchText,
+      'page': pageNumber
+    };
   }
 
   @override
   void initState() {
     super.initState();
 
-    _refreshController = StreamController.broadcast();
-    _refreshController.stream.listen((event) {
+    _streamController = StreamController.broadcast();
+    _streamController.stream.listen((event) {
       setState(() => newsList.add(event));
     });
 
@@ -52,14 +63,17 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
 
   void _refreshData() {
     var streamRes = newsApiClient.getTopHeadlines(filters: _getApiFilters());
-    _refreshController.addStream(streamRes);
+    _streamController.addStream(streamRes);
+
+    _refreshController.loadComplete();
+    ++pageNumber;
   }
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: StreamBuilder(
-        stream: _refreshController.stream,
+        stream: _streamController.stream,
         builder: (context, snapshot) {
           return _createNewsListView(context, snapshot);
         },
@@ -82,11 +96,17 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
         );
       }
 
-      return ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return ListElement(listElement: newsList[index]);
-        },
-        itemCount: newsList.length,
+      return SmartRefresher(
+        controller: _refreshController,
+        enablePullDown: false,
+        enablePullUp: true,
+        onLoading: _refreshData,
+        child: ListView.builder(
+          itemBuilder: (BuildContext context, int index) {
+            return ListElement(listElement: newsList[index]);
+          },
+          itemCount: newsList.length,
+        ),
       );
     } else {
       return Center(child: LoaderSpinkit());

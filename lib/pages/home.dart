@@ -18,7 +18,7 @@ class _HomeState extends State<Home> {
   void initState() {
     super.initState();
 
-    Future.delayed(const Duration(seconds: 1), () {
+    Future.delayed(const Duration(seconds: 5), () {
       Navigator.push(
         context,
         MaterialPageRoute(

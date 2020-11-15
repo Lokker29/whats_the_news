@@ -23,7 +23,8 @@ class NewsAPI {
 
   Stream<News> getTopHeadlines({Map filters}) async* {
     var localFilters = Map<String, dynamic>.from(filters);
-    localFilters['country'] = 'gb';
+    localFilters['country'] = localFilters['country'] ?? APISettings.defaultCountry;
+    localFilters['pageSize'] = localFilters['pageSize'] ?? APISettings.defaultPageSize;
 
     var dataFromAPI =
         (await _makeCheckedCall(() => newsTopHeadlinesService.getNews(localFilters)))
@@ -36,6 +37,7 @@ class NewsAPI {
   Future<Response> _makeCheckedCall(Future<Response> Function() call) async {
     try {
       final response = await call();
+
       if (response.statusCode != 200 || response.body['status'] != 'ok') {
         throw APINotSuccessRequestError();
       }
@@ -43,6 +45,8 @@ class NewsAPI {
       return response;
     } on SocketException {
       throw ConnectionError();
+    } catch(e) {
+      throw APINotSuccessRequestError();
     }
   }
 }

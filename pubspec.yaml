@@ -28,6 +28,7 @@ dependencies:
   chopper: ^2.0.0
   webview_flutter: ^1.0.7
   animated_text_kit: ^2.5.4
+  pull_to_refresh: ^1.6.2
 
 dev_dependencies:
   flutter_test:
