@@ -10,6 +10,10 @@ import 'loader_spinkit.dart';
 import 'news_element.dart';
 
 class NewsStreamBuilder extends StatefulWidget {
+  final String activeCategoryName;
+
+  NewsStreamBuilder(this.activeCategoryName, {Key key}) : super(key: key);
+
   @override
   _NewsStreamBuilderState createState() => _NewsStreamBuilderState();
 }
@@ -28,8 +32,8 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
   }
 
   Map _getApiFilters() {
-    var categoryName = ModalRoute.of(context).settings.arguments;
-    return {'category': categoryName, 'page': 1, 'pageSize': 10};
+    var categoryName = widget.activeCategoryName;
+    return {'category': categoryName, 'page': 1, 'pageSize': 100};
   }
 
   @override
@@ -41,16 +45,12 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
       setState(() => newsList.add(event));
     });
 
-    Future.delayed(Duration.zero, () {
-      var streamRes =
-          newsApiClient.getTopHeadlines(page: 1, filters: _getApiFilters());
-      _refreshController.addStream(streamRes);
-    });
+    _refreshData();
   }
 
-  void _refreshOnError() {
+  void _refreshData() {
     var streamRes =
-        newsApiClient.getTopHeadlines(page: 2, filters: _getApiFilters());
+        newsApiClient.getTopHeadlines(filters: _getApiFilters());
     _refreshController.addStream(streamRes);
   }
 
@@ -68,7 +68,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
 
   Widget _createNewsListView(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.hasError) {
-      return ErrorAlert(_refreshOnError);
+      return ErrorAlert(_refreshData);
     } else if (snapshot.hasData) {
       if (newsList.isEmpty) {
         return Text(

@@ -2,35 +2,37 @@ import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/category.dart';
 
 import "package:whats_the_news/extensions/string_extensions.dart";
-import 'package:whats_the_news/pages/news_page.dart';
 
-class CategoryTile extends StatelessWidget {
+class CategoryTile extends StatefulWidget {
   final Category category;
-  final double _defaultWidth = 120;
+  final Function setActiveCategoryCallback;
+  final String activeCategoryName;
 
-  CategoryTile({this.category});
+  CategoryTile({
+    this.category,
+    this.setActiveCategoryCallback,
+    this.activeCategoryName,
+  });
+
+  @override
+  _CategoryTileState createState() => _CategoryTileState();
+}
+
+class _CategoryTileState extends State<CategoryTile> {
+  final double _defaultWidth = 120;
 
   @override
   Widget build(BuildContext context) {
-    var activeCategoryName = ModalRoute.of(context).settings.arguments;
     var columnElements = [_buildStack()];
 
-    if (category.name == activeCategoryName) {
+    if (widget.category.name == widget.activeCategoryName) {
       columnElements.add(SizedBox(height: 5));
       columnElements.add(_buildActiveElement());
     }
 
     return GestureDetector(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => NewsPage(),
-            settings: RouteSettings(
-              arguments: category.name,
-            ),
-          ),
-        );
+        widget.setActiveCategoryCallback(widget.category.name);
       },
       child: Container(
         margin: EdgeInsets.only(right: 10),
@@ -48,7 +50,7 @@ class CategoryTile extends StatelessWidget {
           borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
           child: Image.asset(
-            category.imageAssetUrl,
+            widget.category.imageAssetUrl,
             height: 60,
             width: _defaultWidth,
             fit: BoxFit.cover,
@@ -64,7 +66,7 @@ class CategoryTile extends StatelessWidget {
                   bottomRight: Radius.circular(5)),
               color: Colors.black26),
           child: Text(
-            category.name.capitalize(),
+            widget.category.name.capitalize(),
             textAlign: TextAlign.center,
             style: TextStyle(
               color: Colors.white,
@@ -78,15 +80,23 @@ class CategoryTile extends StatelessWidget {
   }
 
   Widget _buildActiveElement() {
-    return Container(
-      color: Colors.blueAccent,
-      height: 5,
-      width: _defaultWidth,
+    return Hero(
+      tag: "activeCategoryTile",
+      child: Container(
+        color: Colors.blueAccent,
+        height: 5,
+        width: _defaultWidth,
+      ),
     );
   }
 }
 
 class CategoryTiles extends StatefulWidget {
+  final Function setActiveCategoryCallback;
+  final String activeCategoryName;
+
+  CategoryTiles({this.activeCategoryName, this.setActiveCategoryCallback});
+
   @override
   _CategoryTilesState createState() => _CategoryTilesState();
 }
@@ -104,15 +114,22 @@ class _CategoryTilesState extends State<CategoryTiles> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 70,
-        color: Colors.white,
-        padding: EdgeInsets.symmetric(horizontal: 8),
-        child: ListView.builder(
-          scrollDirection: Axis.horizontal,
-          itemCount: categories.length,
-          itemBuilder: (context, index) {
-            return CategoryTile(category: categories[index]);
-          },
-        ));
+      height: 70,
+      color: Colors.white,
+      padding: EdgeInsets.symmetric(horizontal: 8),
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        // itemCount: categories.length,
+        child: Row(
+          children: categories
+              .map((element) => CategoryTile(
+                    category: element,
+                    activeCategoryName: widget.activeCategoryName,
+                    setActiveCategoryCallback: widget.setActiveCategoryCallback,
+                  ))
+              .toList(),
+        ),
+      ),
+    );
   }
 }

@@ -14,6 +14,8 @@ class NewsPage extends StatefulWidget {
 class _NewsPageState extends State<NewsPage> {
   @override
   Widget build(BuildContext context) {
+    var categoryName = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
@@ -41,7 +43,7 @@ class _NewsPageState extends State<NewsPage> {
           centerTitle: true),
       body: Container(
         // padding: EdgeInsets.all(30.0),
-        child: ListOfNews(),
+        child: ListOfNews(categoryName),
       ),
     );
   }

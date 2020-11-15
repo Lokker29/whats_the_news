@@ -21,7 +21,7 @@ class NewsAPI {
   static final newsTopHeadlinesService =
       _chopperClient.getService<TopHeadlinesNewsService>();
 
-  Stream<News> getTopHeadlines({Map filters, int page = 1}) async* {
+  Stream<News> getTopHeadlines({Map filters}) async* {
     var localFilters = Map<String, dynamic>.from(filters);
     localFilters['country'] = 'gb';
 
