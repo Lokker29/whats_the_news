@@ -3,25 +3,12 @@ import 'package:whats_the_news/models/category.dart';
 
 import 'category_tile.dart';
 
-class CategoriesList extends StatefulWidget {
+class CategoriesList extends StatelessWidget {
   final Function setActiveCategoryCallback;
   final String activeCategoryName;
+  final List<Category> categories = Category.getCategories();
 
   CategoriesList({this.activeCategoryName, this.setActiveCategoryCallback});
-
-  @override
-  _CategoriesListState createState() => _CategoriesListState();
-}
-
-class _CategoriesListState extends State<CategoriesList> {
-  List<Category> categories;
-
-  @override
-  void initState() {
-    super.initState();
-
-    categories = Category.getCategories();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +23,8 @@ class _CategoriesListState extends State<CategoriesList> {
           children: categories
               .map((element) => CategoryTile(
             category: element,
-            activeCategoryName: widget.activeCategoryName,
-            setActiveCategoryCallback: widget.setActiveCategoryCallback,
+            activeCategoryName: activeCategoryName,
+            setActiveCategoryCallback: setActiveCategoryCallback,
           ))
               .toList(),
         ),

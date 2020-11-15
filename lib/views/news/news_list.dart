@@ -58,10 +58,10 @@ class _NewsListState extends State<NewsList> {
       setState(() => newsList.addAll(event));
     });
 
-    _refreshData();
+    _loadData();
   }
 
-  void _refreshData() {
+  void _loadData() {
     var streamRes = newsApiClient.getTopHeadlines(filters: _getApiFilters());
     _streamController.addStream(streamRes);
 
@@ -75,15 +75,15 @@ class _NewsListState extends State<NewsList> {
       child: StreamBuilder(
         stream: _streamController.stream,
         builder: (context, snapshot) {
-          return _createNewsListView(context, snapshot);
+          return _buildNewsListView(context, snapshot);
         },
       ),
     );
   }
 
-  Widget _createNewsListView(BuildContext context, AsyncSnapshot snapshot) {
+  Widget _buildNewsListView(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.hasError) {
-      return ErrorAlert(_refreshData);
+      return ErrorAlert(_loadData);
     } else if (snapshot.hasData) {
       if (newsList.isEmpty) {
         return Center(child: Text(
@@ -100,7 +100,7 @@ class _NewsListState extends State<NewsList> {
         controller: _refreshController,
         enablePullDown: false,
         enablePullUp: true,
-        onLoading: _refreshData,
+        onLoading: _loadData,
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
             return NewsElement(listElement: newsList[index]);
