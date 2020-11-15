@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'news_top_headlines_service.dart';
+part of 'top_headlines_service.dart';
 
 // **************************************************************************
 // ChopperGenerator

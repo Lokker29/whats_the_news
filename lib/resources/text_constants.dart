@@ -1,5 +1,5 @@
-class StringConstants {
-  StringConstants._();
+class TextConstants {
+  TextConstants._();
 
   static const mainTitle = "What's the news?";
 

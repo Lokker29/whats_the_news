@@ -4,25 +4,25 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:whats_the_news/models/news.dart';
-import 'package:whats_the_news/resources/string_constants.dart';
+import 'package:whats_the_news/resources/text_constants.dart';
 import 'package:whats_the_news/services/news_api_client.dart';
+import 'package:whats_the_news/views/error_alert.dart';
+import 'package:whats_the_news/views/loader_spinkit.dart';
 
-import 'error_alert.dart';
-import 'loader_spinkit.dart';
 import 'news_element.dart';
 
-class NewsStreamBuilder extends StatefulWidget {
+class NewsList extends StatefulWidget {
   final String activeCategoryName;
   final String searchText;
 
-  NewsStreamBuilder(this.activeCategoryName, this.searchText, {Key key})
+  NewsList(this.activeCategoryName, this.searchText, {Key key})
       : super(key: key);
 
   @override
-  _NewsStreamBuilderState createState() => _NewsStreamBuilderState();
+  _NewsListState createState() => _NewsListState();
 }
 
-class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
+class _NewsListState extends State<NewsList> {
   int pageNumber = 1;
 
   StreamController<List<News>> _streamController;
@@ -87,7 +87,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
     } else if (snapshot.hasData) {
       if (newsList.isEmpty) {
         return Center(child: Text(
-          StringConstants.emptyListOfNewsText,
+          TextConstants.emptyListOfNewsText,
           style: TextStyle(
             fontSize: 20.0,
             height: 1.5,
@@ -103,7 +103,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
         onLoading: _refreshData,
         child: ListView.builder(
           itemBuilder: (BuildContext context, int index) {
-            return ListElement(listElement: newsList[index]);
+            return NewsElement(listElement: newsList[index]);
           },
           itemCount: newsList.length,
         ),
