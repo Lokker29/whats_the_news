@@ -4,11 +4,7 @@ import 'package:whats_the_news/models/category.dart';
 import 'category_tile.dart';
 
 class CategoriesList extends StatelessWidget {
-  final Function setActiveCategoryCallback;
-  final String activeCategoryName;
   final List<Category> categories = Category.getCategories();
-
-  CategoriesList({this.activeCategoryName, this.setActiveCategoryCallback});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +18,8 @@ class CategoriesList extends StatelessWidget {
         child: Row(
           children: categories
               .map((element) => CategoryTile(
-            category: element,
-            activeCategoryName: activeCategoryName,
-            setActiveCategoryCallback: setActiveCategoryCallback,
-          ))
+                    category: element,
+                  ))
               .toList(),
         ),
       ),

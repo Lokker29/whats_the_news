@@ -26,6 +26,7 @@ class NewsAPI {
     localFilters['country'] = localFilters['country'] ?? APISettings.defaultCountry;
     localFilters['pageSize'] = localFilters['pageSize'] ?? APISettings.defaultPageSize;
 
+    print(localFilters);
     var dataFromAPI =
         (await _makeCheckedCall(() => newsTopHeadlinesService.getNews(localFilters)))
             .body['articles'] as List<dynamic>;
