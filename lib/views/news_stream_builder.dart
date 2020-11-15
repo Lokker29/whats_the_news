@@ -25,7 +25,7 @@ class NewsStreamBuilder extends StatefulWidget {
 class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
   int pageNumber = 1;
 
-  StreamController<News> _streamController;
+  StreamController<List<News>> _streamController;
   RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
@@ -55,7 +55,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
 
     _streamController = StreamController.broadcast();
     _streamController.stream.listen((event) {
-      setState(() => newsList.add(event));
+      setState(() => newsList.addAll(event));
     });
 
     _refreshData();
@@ -86,14 +86,14 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
       return ErrorAlert(_refreshData);
     } else if (snapshot.hasData) {
       if (newsList.isEmpty) {
-        return Text(
+        return Center(child: Text(
           StringConstants.emptyListOfNewsText,
           style: TextStyle(
             fontSize: 20.0,
             height: 1.5,
             fontWeight: FontWeight.w500,
           ),
-        );
+        ));
       }
 
       return SmartRefresher(
