@@ -22,7 +22,8 @@ class _NewsPageState extends State<NewsPage> {
       body: Container(
         child: Stack(
           children: [
-            Container(child: NewsPageContent(categoryName, _searchController.text)),
+            Container(
+                child: NewsPageContent(categoryName, _searchController.text)),
             _buildTextInput(),
           ],
         ),
@@ -40,6 +41,10 @@ class _NewsPageState extends State<NewsPage> {
                 onPressed: () => _activeTextMode.value = true,
                 child: Icon(Icons.search),
                 backgroundColor: Theme.of(context).primaryColor,
+                shape: _searchController.text != ""
+                    ? CircleBorder(
+                        side: BorderSide(color: Colors.red, width: 3.0))
+                    : CircleBorder(),
               );
       },
     );
