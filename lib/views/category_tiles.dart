@@ -80,13 +80,10 @@ class _CategoryTileState extends State<CategoryTile> {
   }
 
   Widget _buildActiveElement() {
-    return Hero(
-      tag: "activeCategoryTile",
-      child: Container(
-        color: Colors.blueAccent,
-        height: 5,
-        width: _defaultWidth,
-      ),
+    return Container(
+      color: Colors.blueAccent,
+      height: 5,
+      width: _defaultWidth,
     );
   }
 }

@@ -11,8 +11,10 @@ import 'news_element.dart';
 
 class NewsStreamBuilder extends StatefulWidget {
   final String activeCategoryName;
+  final String searchText;
 
-  NewsStreamBuilder(this.activeCategoryName, {Key key}) : super(key: key);
+  NewsStreamBuilder(this.activeCategoryName, this.searchText, {Key key})
+      : super(key: key);
 
   @override
   _NewsStreamBuilderState createState() => _NewsStreamBuilderState();
@@ -33,7 +35,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
 
   Map _getApiFilters() {
     var categoryName = widget.activeCategoryName;
-    return {'category': categoryName, 'page': 1, 'pageSize': 100};
+    return {'category': categoryName, 'q': widget.searchText};
   }
 
   @override
@@ -49,8 +51,7 @@ class _NewsStreamBuilderState extends State<NewsStreamBuilder> {
   }
 
   void _refreshData() {
-    var streamRes =
-        newsApiClient.getTopHeadlines(filters: _getApiFilters());
+    var streamRes = newsApiClient.getTopHeadlines(filters: _getApiFilters());
     _refreshController.addStream(streamRes);
   }
 

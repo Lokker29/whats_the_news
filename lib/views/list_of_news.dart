@@ -4,8 +4,9 @@ import 'package:whats_the_news/views/news_stream_builder.dart';
 
 class ListOfNews extends StatefulWidget {
   final String activeCategoryName;
+  final String searchText;
 
-  ListOfNews(this.activeCategoryName);
+  ListOfNews(this.activeCategoryName, this.searchText);
 
   @override
   _ListOfNewsState createState() => _ListOfNewsState();
@@ -46,6 +47,7 @@ class _ListOfNewsState extends State<ListOfNews> {
           builder: (context, newName, child) {
             return NewsStreamBuilder(
               newName,
+              widget.searchText,
               key: UniqueKey(),
             );
           },
