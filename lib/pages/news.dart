@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:whats_the_news/resources/string_constants.dart';
-import 'package:whats_the_news/views/list_of_news.dart';
+import 'package:whats_the_news/resources/text_constants.dart';
+import 'package:whats_the_news/views/news_page_content.dart';
 
 class NewsPage extends StatefulWidget {
-  static const String routeName = '/news';
-
   @override
   _NewsPageState createState() => _NewsPageState();
 }
@@ -19,30 +17,12 @@ class _NewsPageState extends State<NewsPage> {
     var categoryName = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      floatingActionButton: ValueListenableBuilder(
-        valueListenable: _activeTextMode,
-        builder: (context, newValue, child) {
-          return newValue ? Container() : _buildFloatActionButton();
-        },
-      ),
-      appBar: AppBar(
-          automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: Icon(Icons.close),
-            onPressed: () => SystemNavigator.pop(),
-          ),
-          title: Text(
-            StringConstants.mainTitle,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          centerTitle: true),
+      floatingActionButton: _buildFloatActionButton(),
+      appBar: _buildAppBar(),
       body: Container(
         child: Stack(
           children: [
-            Container(child: ListOfNews(categoryName, _searchController.text)),
+            Container(child: NewsPageContent(categoryName, _searchController.text)),
             _buildTextInput(),
           ],
         ),
@@ -51,11 +31,35 @@ class _NewsPageState extends State<NewsPage> {
   }
 
   Widget _buildFloatActionButton() {
-    return FloatingActionButton(
-      onPressed: () => _activeTextMode.value = true,
-      child: Icon(Icons.search),
-      backgroundColor: Theme.of(context).primaryColor,
+    return ValueListenableBuilder(
+      valueListenable: _activeTextMode,
+      builder: (context, newValue, child) {
+        return newValue
+            ? Container()
+            : FloatingActionButton(
+                onPressed: () => _activeTextMode.value = true,
+                child: Icon(Icons.search),
+                backgroundColor: Theme.of(context).primaryColor,
+              );
+      },
     );
+  }
+
+  Widget _buildAppBar() {
+    return AppBar(
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.close),
+          onPressed: () => SystemNavigator.pop(),
+        ),
+        title: Text(
+          TextConstants.mainTitle,
+          style: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+        centerTitle: true);
   }
 
   Widget _buildTextInput() {
@@ -78,7 +82,7 @@ class _NewsPageState extends State<NewsPage> {
                 fontSize: 20,
               ),
               decoration: InputDecoration(
-                contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 30),
                   hintText: 'Search',
                   filled: true,
                   fillColor: Colors.white,
@@ -86,7 +90,9 @@ class _NewsPageState extends State<NewsPage> {
                     borderRadius: BorderRadius.all(Radius.circular(30)),
                   ),
                   suffixIcon: IconButton(
-                    onPressed: () => setState(() {_activeTextMode.value = false;}),
+                    onPressed: () => setState(() {
+                      _activeTextMode.value = false;
+                    }),
                     icon: Icon(Icons.search),
                   )),
             ),

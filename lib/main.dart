@@ -1,31 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/pages/article.dart';
-import 'pages/news_page.dart';
-import 'pages/home.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:whats_the_news/theme.dart';
+import 'pages/splash.dart';
 
-void main() {
+Future main() async {
+  await DotEnv().load('.env');
+
   runApp(MaterialApp(
-    theme: ThemeData(
-      primaryColor: Color(0xFF171617),
-      scaffoldBackgroundColor: Color(0xFFEEE5E9),
-      fontFamily: 'Faustina',
-      textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-            textStyle: TextStyle(
-              fontWeight: FontWeight.w600,
-            ),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0)),
-            minimumSize: Size(180.0, 40.0),
-            primary: Colors.white,
-            backgroundColor: Color(0xFF171617)),
-      ),
-    ),
-    initialRoute: '/',
+    initialRoute: SplashPage.routeName,
     routes: {
-      Home.routeName: (context) => Home(),
-      NewsPage.routeName: (context) => NewsPage(),
-      ArticlePage.routeName: (context) => ArticlePage(article: null),
+      SplashPage.routeName: (context) => SplashPage(),
     },
+    theme: getThemeData(),
   ));
 }

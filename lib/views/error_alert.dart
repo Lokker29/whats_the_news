@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/resources/string_constants.dart';
+import 'package:whats_the_news/resources/text_constants.dart';
 import 'package:whats_the_news/views/menu_button.dart';
 
 class ErrorAlert extends StatelessWidget {
@@ -10,9 +10,9 @@ class ErrorAlert extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(StringConstants.errorAlertTitle),
+      title: Text(TextConstants.errorAlertTitle),
       content: MenuButton(
-        text: StringConstants.errorAlertText,
+        text: TextConstants.errorAlertText,
         onPressed: callbackOnClick,
       ),
     );

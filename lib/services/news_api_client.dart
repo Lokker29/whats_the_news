@@ -3,9 +3,9 @@ import 'dart:io';
 import 'package:chopper/chopper.dart';
 import 'package:whats_the_news/exceptions.dart';
 import 'package:whats_the_news/models/news.dart';
-import 'package:whats_the_news/resources/settings.dart';
+import 'package:whats_the_news/resources/api_settings.dart';
 
-import 'api/top_headlines/news_top_headlines_service.dart';
+import 'api/top_headlines_service.dart';
 
 class NewsAPI {
   static final ChopperClient _chopperClient = ChopperClient(

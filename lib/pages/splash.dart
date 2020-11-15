@@ -2,18 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/category.dart';
-import 'package:whats_the_news/resources/string_constants.dart';
+import 'package:whats_the_news/resources/text_constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'news_page.dart';
+import 'news.dart';
 
-class Home extends StatefulWidget {
+class SplashPage extends StatefulWidget {
   static const String routeName = '/';
 
   @override
-  _HomeState createState() => _HomeState();
+  _SplashPageState createState() => _SplashPageState();
 }
 
-class _HomeState extends State<Home> {
+class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
     super.initState();
@@ -40,7 +40,7 @@ class _HomeState extends State<Home> {
           child: TypewriterAnimatedTextKit(
             speed: Duration(milliseconds: 250),
             text: [
-              StringConstants.mainTitle,
+              TextConstants.mainTitle,
             ],
             textStyle: TextStyle(
               fontSize: 30,

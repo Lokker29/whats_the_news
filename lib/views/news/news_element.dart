@@ -3,11 +3,11 @@ import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/pages/article.dart';
 import 'package:whats_the_news/resources/assets_urls.dart';
 
-class ListElement extends StatelessWidget {
+class NewsElement extends StatelessWidget {
   final News listElement;
   final double sizedBoxHeight = 10.0;
 
-  ListElement({key, @required this.listElement}) : super(key: key);
+  NewsElement({key, @required this.listElement}) : super(key: key);
 
   List<Widget> _getBuildChildren() {
     List<Widget> children = [

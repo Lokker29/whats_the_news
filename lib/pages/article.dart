@@ -3,11 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 import 'package:whats_the_news/models/news.dart';
-import 'package:whats_the_news/resources/string_constants.dart';
+import 'package:whats_the_news/resources/text_constants.dart';
 
 class ArticlePage extends StatefulWidget {
-  static const String routeName = '/article';
-
   final News article;
 
   ArticlePage({@required this.article});
@@ -25,7 +23,7 @@ class _ArticlePageState extends State<ArticlePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          StringConstants.mainTitle,
+          TextConstants.mainTitle,
           style: TextStyle(
             fontSize: 20,
             fontWeight: FontWeight.w600,
