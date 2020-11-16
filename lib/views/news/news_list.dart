@@ -1,79 +1,51 @@
-import 'dart:async';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:whats_the_news/exceptions.dart';
+import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/resources/text_constants.dart';
-import 'package:whats_the_news/services/news_api_client.dart';
+import 'package:whats_the_news/services/blocs/news_bloc.dart';
 import 'package:whats_the_news/views/error_alert.dart';
 import 'package:whats_the_news/views/loader_spinkit.dart';
 
 import 'news_element.dart';
 
 class NewsList extends StatefulWidget {
-  final String activeCategoryName;
+  final Category activeCategory;
   final String searchText;
 
-  NewsList(this.activeCategoryName, this.searchText, {Key key})
-      : super(key: key);
+  NewsList(this.activeCategory, this.searchText);
 
   @override
   _NewsListState createState() => _NewsListState();
 }
 
 class _NewsListState extends State<NewsList> {
-  int pageNumber = 1;
-
-  StreamController<List<News>> _streamController;
-  RefreshController _refreshController =
-      RefreshController(initialRefresh: false);
+  NewsBloc _bloc;
 
   List<News> newsList = [];
 
-  final NewsAPI newsApiClient = NewsAPI();
-
-  @override
-  void dispose() {
-    _streamController?.close();
-    _streamController = null;
-    super.dispose();
-  }
-
-  Map _getApiFilters() {
-    var categoryName = widget.activeCategoryName;
-    return {
-      'category': categoryName,
-      'q': widget.searchText,
-      'page': pageNumber
-    };
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    _streamController = StreamController.broadcast();
-    _streamController.stream.listen((event) {
-      setState(() => newsList.addAll(event));
-    });
-
-    _loadData();
-  }
+  RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   void _loadData() {
-    var streamRes = newsApiClient.getTopHeadlines(filters: _getApiFilters());
-    _streamController.addStream(streamRes);
+    _bloc?.add(NewsEvent(
+      category: widget.activeCategory,
+      query: widget.searchText,
+    ));
 
     _refreshController.loadComplete();
-    ++pageNumber;
   }
 
   @override
   Widget build(BuildContext context) {
+    _bloc = BlocProvider.of<NewsBloc>(context);
+
+    _loadData();
     return Expanded(
       child: StreamBuilder(
-        stream: _streamController.stream,
+        stream: _bloc,
         builder: (context, snapshot) {
           return _buildNewsListView(context, snapshot);
         },
@@ -82,20 +54,16 @@ class _NewsListState extends State<NewsList> {
   }
 
   Widget _buildNewsListView(BuildContext context, AsyncSnapshot snapshot) {
-    if (snapshot.hasError) {
-      return ErrorAlert(_loadData);
-    } else if (snapshot.hasData) {
-      if (newsList.isEmpty) {
-        return Center(child: Text(
-          TextConstants.emptyListOfNewsText,
-          style: TextStyle(
-            fontSize: 20.0,
-            height: 1.5,
-            fontWeight: FontWeight.w500,
-          ),
-        ));
-      }
+    NewsState state = snapshot.data;
 
+    if (state is NewsOccurredError) {
+      return ErrorAlert(_loadData);
+    } else if (state is NewsWasLoaded) {
+      newsList.addAll(state.news);
+
+      if (newsList.isEmpty) {
+        return _buildEmptyResult();
+      }
       return SmartRefresher(
         controller: _refreshController,
         enablePullDown: false,
@@ -108,8 +76,24 @@ class _NewsListState extends State<NewsList> {
           itemCount: newsList.length,
         ),
       );
+    } else if (state == null || state is NewsIsLoading) {
+      return Center(
+        child: LoaderSpinkit(),
+      );
     } else {
-      return Center(child: LoaderSpinkit());
+      throw NotImplementedStateError("Not implemented state");
     }
+  }
+
+  Widget _buildEmptyResult() {
+    return Center(
+        child: Text(
+      TextConstants.emptyListOfNewsText,
+      style: TextStyle(
+        fontSize: 20.0,
+        height: 1.5,
+        fontWeight: FontWeight.w500,
+      ),
+    ));
   }
 }

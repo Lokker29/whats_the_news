@@ -1,18 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whats_the_news/models/category.dart';
 
 import "package:whats_the_news/extensions/string_extensions.dart";
+import 'package:whats_the_news/services/blocs/category_bloc.dart';
 
 class CategoryTile extends StatefulWidget {
   final Category category;
-  final Function setActiveCategoryCallback;
-  final String activeCategoryName;
 
-  CategoryTile({
-    this.category,
-    this.setActiveCategoryCallback,
-    this.activeCategoryName,
-  });
+  CategoryTile({@required this.category});
 
   @override
   _CategoryTileState createState() => _CategoryTileState();
@@ -23,21 +19,19 @@ class _CategoryTileState extends State<CategoryTile> {
 
   @override
   Widget build(BuildContext context) {
-    var columnElements = [_buildStack()];
-
-    if (widget.category.name == widget.activeCategoryName) {
-      columnElements.add(SizedBox(height: 5));
-      columnElements.add(_buildActiveElement());
-    }
+    CategoryBloc _bloc = BlocProvider.of<CategoryBloc>(context);
 
     return GestureDetector(
       onTap: () {
-        widget.setActiveCategoryCallback(widget.category.name);
+        _bloc.add(Category.getEnumNameByCategory(widget.category));
       },
       child: Container(
         margin: EdgeInsets.only(right: 10),
         child: Column(
-          children: columnElements,
+          children: [
+            _buildStack(),
+            _buildBottomElement(),
+          ],
         ),
       ),
     );
@@ -76,6 +70,21 @@ class _CategoryTileState extends State<CategoryTile> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildBottomElement() {
+    return BlocBuilder<CategoryBloc, Category>(
+      builder: (context, state) {
+        if (state != widget.category) return Container();
+
+        return Column(
+          children: [
+            SizedBox(height: 5),
+            _buildActiveElement(),
+          ],
+        );
+      },
     );
   }
 

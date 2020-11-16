@@ -1,10 +1,9 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/resources/text_constants.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'news.dart';
+import 'news_page.dart';
 
 class SplashPage extends StatefulWidget {
   static const String routeName = '/';
@@ -23,9 +22,6 @@ class _SplashPageState extends State<SplashPage> {
         context,
         MaterialPageRoute(
           builder: (context) => NewsPage(),
-          settings: RouteSettings(
-            arguments: Category.getDefaultCategoryName,
-          ),
         ),
       );
     });

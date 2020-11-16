@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/resources/text_constants.dart';
+import 'package:whats_the_news/services/blocs/category_bloc.dart';
 import 'package:whats_the_news/views/news_page_content.dart';
 
 class NewsPage extends StatefulWidget {
@@ -14,18 +17,18 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    var categoryName = ModalRoute.of(context).settings.arguments;
-
-    return Scaffold(
-      floatingActionButton: _buildFloatActionButton(),
-      appBar: _buildAppBar(),
-      body: Container(
-        child: Stack(
-          children: [
-            Container(
-                child: NewsPageContent(categoryName, _searchController.text)),
-            _buildTextInput(),
-          ],
+    return BlocProvider<CategoryBloc>(
+      create: (context) => CategoryBloc(Category.getDefaultCategory),
+      child: Scaffold(
+        floatingActionButton: _buildFloatActionButton(),
+        appBar: _buildAppBar(),
+        body: Container(
+          child: Stack(
+            children: [
+              Container(child: NewsPageContent(_searchController.text)),
+              _buildTextInput(),
+            ],
+          ),
         ),
       ),
     );
@@ -36,7 +39,11 @@ class _NewsPageState extends State<NewsPage> {
       valueListenable: _activeTextMode,
       builder: (context, newValue, child) {
         return newValue
-            ? Container()
+            ? FloatingActionButton(
+                onPressed: () => _activeTextMode.value = false,
+                child: Icon(Icons.arrow_circle_down),
+                backgroundColor: Theme.of(context).primaryColor,
+              )
             : FloatingActionButton(
                 onPressed: () => _activeTextMode.value = true,
                 child: Icon(Icons.search),
