@@ -14,7 +14,6 @@ class CategoriesList extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 8),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        // itemCount: categories.length,
         child: Row(
           children: categories
               .map((element) => CategoryTile(

@@ -40,11 +40,6 @@ class Category {
     ];
   }
 
-  // TODO: remove it
-  static String get getDefaultCategoryName {
-    return 'general';
-  }
-
   static Category get getDefaultCategory {
     return Category.getCategoryByEnumName(CategoryName.general);
   }

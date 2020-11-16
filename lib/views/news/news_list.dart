@@ -62,15 +62,7 @@ class _NewsListState extends State<NewsList> {
       newsList.addAll(state.news);
 
       if (newsList.isEmpty) {
-        return Center(
-            child: Text(
-          TextConstants.emptyListOfNewsText,
-          style: TextStyle(
-            fontSize: 20.0,
-            height: 1.5,
-            fontWeight: FontWeight.w500,
-          ),
-        ));
+        return _buildEmptyResult();
       }
       return SmartRefresher(
         controller: _refreshController,
@@ -85,9 +77,23 @@ class _NewsListState extends State<NewsList> {
         ),
       );
     } else if (state == null || state is NewsIsLoading) {
-      return Center(child: LoaderSpinkit());
+      return Center(
+        child: LoaderSpinkit(),
+      );
     } else {
       throw NotImplementedStateError("Not implemented state");
     }
+  }
+
+  Widget _buildEmptyResult() {
+    return Center(
+        child: Text(
+      TextConstants.emptyListOfNewsText,
+      style: TextStyle(
+        fontSize: 20.0,
+        height: 1.5,
+        fontWeight: FontWeight.w500,
+      ),
+    ));
   }
 }

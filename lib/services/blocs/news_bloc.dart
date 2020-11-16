@@ -39,8 +39,8 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
     try {
       List<News> newsList = await _apiNews.getTopHeadlines(filters: filters);
 
-      ++_page;
       yield NewsWasLoaded(newsList);
+      ++_page;
     } catch (e) {
       yield NewsOccurredError();
     }

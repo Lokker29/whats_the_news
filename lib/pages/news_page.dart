@@ -39,7 +39,11 @@ class _NewsPageState extends State<NewsPage> {
       valueListenable: _activeTextMode,
       builder: (context, newValue, child) {
         return newValue
-            ? Container()
+            ? FloatingActionButton(
+                onPressed: () => _activeTextMode.value = false,
+                child: Icon(Icons.arrow_circle_down),
+                backgroundColor: Theme.of(context).primaryColor,
+              )
             : FloatingActionButton(
                 onPressed: () => _activeTextMode.value = true,
                 child: Icon(Icons.search),
