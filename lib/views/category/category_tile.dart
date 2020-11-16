@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whats_the_news/models/category.dart';
 
 import "package:whats_the_news/extensions/string_extensions.dart";
-import 'package:whats_the_news/services/news_bloc.dart';
+import 'package:whats_the_news/services/blocs/category_bloc.dart';
 
 class CategoryTile extends StatefulWidget {
   final Category category;

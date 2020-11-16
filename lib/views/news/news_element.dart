@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/news.dart';
-import 'package:whats_the_news/pages/article.dart';
+import 'package:whats_the_news/pages/article_page.dart';
 import 'package:whats_the_news/resources/assets_urls.dart';
 
 class NewsElement extends StatelessWidget {

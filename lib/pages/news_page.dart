@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/resources/text_constants.dart';
-import 'package:whats_the_news/services/news_bloc.dart';
+import 'package:whats_the_news/services/blocs/category_bloc.dart';
 import 'package:whats_the_news/views/news_page_content.dart';
 
 class NewsPage extends StatefulWidget {
@@ -17,8 +17,8 @@ class _NewsPageState extends State<NewsPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => CategoryBloc(Category.getDefaultCategory),
+    return BlocProvider<CategoryBloc>(
+      create: (context) => CategoryBloc(Category.getDefaultCategory),
       child: Scaffold(
         floatingActionButton: _buildFloatActionButton(),
         appBar: _buildAppBar(),

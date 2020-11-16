@@ -5,3 +5,9 @@ class APINotSuccessRequestError implements Exception {
 class ConnectionError implements Exception {
   final message = 'Your device has some issues with the Internet connection';
 }
+
+class NotImplementedStateError implements Exception {
+  final message;
+
+  NotImplementedStateError(this.message);
+}
