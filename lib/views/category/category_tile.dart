@@ -30,7 +30,7 @@ class _CategoryTileState extends State<CategoryTile> {
         child: Column(
           children: [
             _buildStack(),
-            _buildBottomElement(_bloc),
+            _buildBottomElement(),
           ],
         ),
       ),
@@ -73,7 +73,7 @@ class _CategoryTileState extends State<CategoryTile> {
     );
   }
 
-  Widget _buildBottomElement(CategoryBloc _bloc) {
+  Widget _buildBottomElement() {
     return BlocBuilder<CategoryBloc, Category>(
       builder: (context, state) {
         if (state != widget.category) return Container();
