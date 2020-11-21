@@ -15,14 +15,16 @@ class APIFilters {
     this.query,
     pageSize,
     country,
-  })  : this.country = country ?? APISettings.defaultCountry,
+  })  : assert(page != null && page > 0),
+        assert(category != null),
+        this.country = country ?? APISettings.defaultCountry,
         this.pageSize = pageSize ?? APISettings.defaultPageSize;
 
   Map<String, dynamic> toJson() {
     return {
       'q': this.query,
       'page': this.page,
-      'category': this.category?.name,
+      'category': this.category.name,
       'pageSize': this.pageSize,
       'country': this.country,
     };
