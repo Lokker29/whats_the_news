@@ -87,13 +87,14 @@ class _NewsListState extends State<NewsList> {
 
   Widget _buildEmptyResult() {
     return Center(
-        child: Text(
-      TextConstants.emptyListOfNewsText,
-      style: TextStyle(
-        fontSize: 20.0,
-        height: 1.5,
-        fontWeight: FontWeight.w500,
+      child: Text(
+        TextConstants.emptyListOfNewsText,
+        style: TextStyle(
+          fontSize: 20.0,
+          height: 1.5,
+          fontWeight: FontWeight.w500,
+        ),
       ),
-    ));
+    );
   }
 }

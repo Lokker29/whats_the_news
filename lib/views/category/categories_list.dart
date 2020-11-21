@@ -17,9 +17,7 @@ class CategoriesList extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
             children: categories
-                .map((element) => CategoryTile(
-                      category: element,
-                    ))
+                .map((element) => CategoryTile(category: element))
                 .toList(),
           ),
         ),

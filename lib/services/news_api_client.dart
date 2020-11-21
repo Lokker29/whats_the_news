@@ -10,9 +10,7 @@ import 'api/top_headlines_service.dart';
 class NewsAPI {
   static final ChopperClient _chopperClient = ChopperClient(
       baseUrl: APISettings.newsApiDomain,
-      services: [
-        TopHeadlinesNewsService.create()
-      ],
+      services: [TopHeadlinesNewsService.create()],
       converter: JsonConverter(),
       interceptors: [
         HeadersInterceptor({'X-Api-Key': APISettings.newsApiKey})
@@ -45,7 +43,7 @@ class NewsAPI {
       return response;
     } on SocketException {
       throw ConnectionError();
-    } catch(e) {
+    } catch (e) {
       throw APINotSuccessRequestError();
     }
   }

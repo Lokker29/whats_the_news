@@ -60,10 +60,11 @@ class NewsElement extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArticlePage(article: listElement),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticlePage(article: listElement),
+          ),
+        );
       },
       child: Card(
         child: Container(

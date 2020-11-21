@@ -11,10 +11,11 @@ class MenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: this.onPressed,
-        child: Text(
-          this.text,
-          style: TextStyle(fontSize: this.menuButtonsWidth),
-        ));
+      onPressed: this.onPressed,
+      child: Text(
+        this.text,
+        style: TextStyle(fontSize: this.menuButtonsWidth),
+      ),
+    );
   }
 }
