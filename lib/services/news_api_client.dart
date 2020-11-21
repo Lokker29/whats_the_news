@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:chopper/chopper.dart';
 import 'package:whats_the_news/exceptions.dart';
+import 'package:whats_the_news/models/api_filters.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/resources/api_settings.dart';
 
@@ -19,14 +20,9 @@ class NewsAPI {
   static final newsTopHeadlinesService =
       _chopperClient.getService<TopHeadlinesNewsService>();
 
-  Future<List<News>> getTopHeadlines({Map filters}) async {
-    var localFilters = Map<String, dynamic>.from(filters);
-    localFilters['country'] =
-        localFilters['country'] ?? APISettings.defaultCountry;
-    localFilters['pageSize'] =
-        localFilters['pageSize'] ?? APISettings.defaultPageSize;
+  Future<List<News>> getTopHeadlines({APIFilters filters}) async {
     var dataFromAPI = (await _makeCheckedCall(
-            () => newsTopHeadlinesService.getNews(localFilters)))
+            () => newsTopHeadlinesService.getNews(filters.toJson())))
         .body['articles'] as List<dynamic>;
 
     return dataFromAPI.map((data) => News.fromJson(data)).toList();

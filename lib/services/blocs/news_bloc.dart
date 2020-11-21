@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:whats_the_news/models/api_filters.dart';
 import 'package:whats_the_news/models/category.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/services/news_api_client.dart';
@@ -31,11 +32,12 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
   @override
   Stream<NewsState> mapEventToState(NewsEvent event) async* {
-    Map filters = {
-      'q': event.query ?? "",
-      'page': _page,
-      'category': event.category?.name
-    };
+    APIFilters filters = APIFilters(
+      page: _page,
+      category: event.category,
+      query: event.query,
+    );
+
     try {
       List<News> newsList = await _apiNews.getTopHeadlines(filters: filters);
 
