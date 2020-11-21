@@ -10,4 +10,6 @@ class TextConstants {
 
   static const emptyListOfNewsText =
       "Sorry, no matches were found for your query";
+
+  static const goToOriginalArticleButtonText = 'Go to the original article';
 }
