@@ -94,19 +94,20 @@ class _NewsPageState extends State<NewsPage> {
                 fontSize: 20,
               ),
               decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                  hintText: 'Search',
-                  filled: true,
-                  fillColor: Colors.white,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(30)),
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () => setState(() {
-                      _activeTextMode.value = false;
-                    }),
-                    icon: Icon(Icons.search),
-                  )),
+                contentPadding: EdgeInsets.symmetric(horizontal: 30),
+                hintText: 'Search',
+                filled: true,
+                fillColor: Colors.white,
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(30)),
+                ),
+                suffixIcon: IconButton(
+                  onPressed: () => setState(() {
+                    _activeTextMode.value = false;
+                  }),
+                  icon: Icon(Icons.search),
+                ),
+              ),
             ),
           ),
         );

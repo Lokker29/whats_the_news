@@ -11,15 +11,17 @@ class CategoriesList extends StatelessWidget {
     return Container(
       height: 70,
       color: Colors.white,
-      padding: EdgeInsets.symmetric(horizontal: 8),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        child: Row(
-          children: categories
-              .map((element) => CategoryTile(
-                    category: element,
-                  ))
-              .toList(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 8),
+          child: Row(
+            children: categories
+                .map((element) => CategoryTile(
+                      category: element,
+                    ))
+                .toList(),
+          ),
         ),
       ),
     );

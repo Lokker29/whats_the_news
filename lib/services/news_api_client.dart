@@ -23,11 +23,13 @@ class NewsAPI {
 
   Future<List<News>> getTopHeadlines({Map filters}) async {
     var localFilters = Map<String, dynamic>.from(filters);
-    localFilters['country'] = localFilters['country'] ?? APISettings.defaultCountry;
-    localFilters['pageSize'] = localFilters['pageSize'] ?? APISettings.defaultPageSize;
-    var dataFromAPI =
-        (await _makeCheckedCall(() => newsTopHeadlinesService.getNews(localFilters)))
-            .body['articles'] as List<dynamic>;
+    localFilters['country'] =
+        localFilters['country'] ?? APISettings.defaultCountry;
+    localFilters['pageSize'] =
+        localFilters['pageSize'] ?? APISettings.defaultPageSize;
+    var dataFromAPI = (await _makeCheckedCall(
+            () => newsTopHeadlinesService.getNews(localFilters)))
+        .body['articles'] as List<dynamic>;
 
     return dataFromAPI.map((data) => News.fromJson(data)).toList();
   }

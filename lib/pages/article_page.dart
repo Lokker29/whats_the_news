@@ -26,8 +26,8 @@ class ArticlePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: Container(
-        height: MediaQuery.of(context).size.height,
-        width: MediaQuery.of(context).size.width,
+        height: double.infinity,
+        width: double.infinity,
         child: WebView(
           initialUrl: article.url,
           onWebViewCreated: (WebViewController webViewController) {
