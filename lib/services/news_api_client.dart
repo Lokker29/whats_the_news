@@ -39,7 +39,7 @@ class NewsAPI {
       return response;
     } on SocketException {
       throw ConnectionError();
-    } catch (e) {
+    } catch (exception) {
       throw APINotSuccessRequestError();
     }
   }

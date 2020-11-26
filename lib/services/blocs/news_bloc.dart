@@ -43,7 +43,7 @@ class NewsBloc extends Bloc<NewsEvent, NewsState> {
 
       yield NewsWasLoaded(newsList);
       ++_page;
-    } catch (e) {
+    } catch (exception) {
       yield NewsOccurredError();
     }
   }
