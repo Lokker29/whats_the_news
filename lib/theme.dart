@@ -11,7 +11,8 @@ ThemeData getThemeData() {
             fontWeight: FontWeight.w600,
           ),
           shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(15.0)),
+            borderRadius: BorderRadius.circular(15.0),
+          ),
           minimumSize: Size(180.0, 40.0),
           primary: Colors.white,
           backgroundColor: Color(0xFF171617)),

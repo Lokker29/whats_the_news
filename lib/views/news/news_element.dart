@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:whats_the_news/models/news.dart';
 import 'package:whats_the_news/pages/article_page.dart';
-import 'package:whats_the_news/resources/assets_urls.dart';
 
 class NewsElement extends StatelessWidget {
   final News listElement;
@@ -9,9 +8,9 @@ class NewsElement extends StatelessWidget {
 
   NewsElement({key, @required this.listElement}) : super(key: key);
 
-  List<Widget> _getBuildChildren() {
+  List<Widget> _getContentChildren() {
     List<Widget> children = [
-      _buildImage(),
+      listElement.getImageWidget(),
       Text(
         this.listElement.title,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.w500),
@@ -60,34 +59,21 @@ class NewsElement extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ArticlePage(article: listElement),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => ArticlePage(article: listElement),
+          ),
+        );
       },
       child: Card(
         child: Container(
           padding: EdgeInsets.all(10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            children: _getBuildChildren(),
+            children: _getContentChildren(),
           ),
         ),
       ),
     );
-  }
-
-  Widget _buildImage() {
-    if (listElement.urlToImage != null) {
-      return Image.network(
-        listElement.getUrlToImage,
-        fit: BoxFit.cover,
-      );
-    } else {
-      return Image.asset(
-        AssetsUrls.defaultNewsUrl,
-        fit: BoxFit.cover,
-      );
-    }
   }
 }

@@ -36,5 +36,4 @@ class NewsPageContent extends StatelessWidget {
       },
     );
   }
-
 }

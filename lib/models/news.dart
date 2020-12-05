@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+import 'package:whats_the_news/resources/assets_urls.dart';
+
 class News {
   Source source;
   String author;
@@ -59,6 +62,12 @@ class News {
     return content.length < lengthContentDisplayed
         ? content
         : content.substring(0, lengthContentDisplayed) + '...';
+  }
+
+  Widget getImageWidget() {
+    return this.urlToImage != null
+        ? Image.network(this.getUrlToImage, fit: BoxFit.cover)
+        : Image.asset(AssetsUrls.defaultNewsUrl, fit: BoxFit.cover);
   }
 }
 

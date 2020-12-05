@@ -42,7 +42,9 @@ class _CategoryTileState extends State<CategoryTile> {
       children: [
         ClipRRect(
           borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(5), bottomRight: Radius.circular(5)),
+            bottomLeft: Radius.circular(5),
+            bottomRight: Radius.circular(5),
+          ),
           child: Image.asset(
             widget.category.imageAssetUrl,
             height: 60,
@@ -55,10 +57,12 @@ class _CategoryTileState extends State<CategoryTile> {
           height: 60,
           width: _defaultWidth,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.only(
-                  bottomLeft: Radius.circular(5),
-                  bottomRight: Radius.circular(5)),
-              color: Colors.black26),
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(5),
+              bottomRight: Radius.circular(5),
+            ),
+            color: Colors.black26,
+          ),
           child: Text(
             widget.category.name.capitalize(),
             textAlign: TextAlign.center,
